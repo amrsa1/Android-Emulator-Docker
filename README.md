@@ -35,6 +35,8 @@ Emulator image is x86 CPU to enhance its speed and performance, also google play
     
 4.  Open dash terminal and right the following command: 
 #: **./root/start_emu.sh**
+ 
+<a href="https://ibb.co/pPq0bn9"><img src="https://i.ibb.co/pPq0bn9/vnc.png" alt="vnc" border="0"></a>       <a href="https://ibb.co/cJB6qkX"><img src="https://i.ibb.co/cJB6qkX/gif.gif"       alt="gif" border="0"></a>
     
 *Note: start_emu.sh will launch the emulator in headed mode, so this shell script should not be used for integration with the pipeline (e.g. Jenkins), Use **start_emu_headless.sh** instead so emulator will lauch in headless mode*
 
