@@ -4,6 +4,8 @@ It's a docker image, provides an easy way to have an android emulator working in
 
 Emulator image is x86 CPU to enhance its speed and performance, also google play services have been added.
 
+https://hub.docker.com/repository/docker/amrka/ultimate-android
+
 **Setup** 
 
 1. pull the docker image: *docker pull amrka/ultimate-android:latest*
