@@ -57,7 +57,7 @@ After running the command above you will be able now to run the following comman
 
 ## Using Docker-compose
 
-Using the dokcer-compose file will make initiating the service even more easier, docker-compose yml file provided has two main services android emulator with appium and selenium service, you can tweak them or adjust the file based on your need.
+Using the docker-compose file will make initiating the service even easier, docker-compose yml file provided has two main services android emulator with appium and selenium service, you can tweak them or adjust the file based on your need.
 
 ## Kill the container
 
