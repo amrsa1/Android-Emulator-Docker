@@ -63,10 +63,3 @@ Using the dokcer-compose file will make initiating the service even more easier,
 
 -   Run the following command to kill and remove the container : 
 **docker rm -f androidImage**
-
-After running the command above you will be able now to run the following command to have  your
-Repository clones in / directory 
-
-docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"
-
-Note: You can combine all VNC env var with the env above.
