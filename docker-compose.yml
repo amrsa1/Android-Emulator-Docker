@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+
+  Emulator-Appium:
+    image: amrka/ultimate-android
+    build: .
+    ports:
+      - "5900:5900" ##FOR VNC SERVER
+      - "4723:4723" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
+    container_name: androidServ
+    environment:
+      branch: master                        ##REPO BRANCH NAME
+      username: amrka                       ##Github Username
+      gitPass: password                     ##Github password
+      gitUrl: github.com/amrka/API-test.git ## Repo SSH URL 
+    privileged: true
+    command:
+       bash -c './root/clone_repo.sh &&
+                (./root/start_emu_headless.sh &) &&
+                appium -p 4723'
+    tty: true
+    stdin_open: true
+
+  Selenium:
+    image: amrka/ultimate-android
+    build: .
+    ports:
+      - "4444:4444" ##FOR SELENIUM SERVER
+    container_name: seleniumServ
+    command:
+      bash -c './root/start_selenium.sh' ##STARTING SELENIUM SERVER
+    tty: true
+    stdin_open: true

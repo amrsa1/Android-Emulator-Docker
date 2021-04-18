@@ -1,6 +1,6 @@
 ***Ultimate android Image***
 
-It's a docker image, provides an easy way to have an android emulator working inside a docker container by running few simple commands, the image as well comes with the latest Android SDK and the latest Appium version to ease the CI/CD.
+It's a docker image, provides an easy way to have an android emulator working inside a docker container by running few simple commands, the image as well comes with the latest Android SDK and the latest Appium version to ease the CI/CD, Aslo selenium service is added so you can run you automation script against chrome browser.
 
 Emulator image is x86 CPU to enhance its speed and performance, also google play services have been added.
 
@@ -50,6 +50,10 @@ Repository clones in / directory
 docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"
 
 Note: You can combine all VNC env var with the env above.
+
+**Using Docker-compose**
+
+Using the dokcer-compose file will make initiating the service even more easier, docker-compose yml file provided has two main services android emulator with appium and selenium service, you can tweak them or adjust the file based on you need
 
 
 **Kill the container**
