@@ -1,33 +1,59 @@
 version: "3.8"
 services:
-
-  Emulator-Appium:
+####################################################################################   Launch eulator and appium instance
+  Android-Service:
+    image: amrka/ultimate-android
+    build: .
+    ports:
+      - "4723:4723" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
+    container_name: android-Service
+    privileged: true
+    command:
+       bash -c './root/start_emu_headless.sh && appium -p 4723'
+    tty: true
+    stdin_open: true
+####################################################################################   Clone you github repository and run script (JAVA/JS)
+  Clone-Service:
+    image: amrka/ultimate-android
+    build: .
+    ports:
+      - "4725" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
+    container_name: clone-Service
+    environment:
+      BRANCH: master                                                             ##REPO BRANCH NAME
+      GITHUB_USERNAME: amrkamel1                                                 ##Github Username
+      GITHUN_TOKEN: ghp_wZIj4X7AaAR4aJVrb72RAIMp....                     ##Github token
+      REPO_NAME: android-test                                                            ##Github repo exact name
+      TEST_SCRIPT: 'mvn test'
+    privileged: true
+    command:
+       bash -c './root/clone_repo.sh && ./root/execute_test.sh'       ##  Repo will be clones and test will be exected based on TEST_SCRIPT value
+    tty: true
+    stdin_open: true
+####################################################################################   Start selenium instance
+  Selenium-Service:
+    image: amrka/ultimate-android
+    build: .
+    ports:
+      - "4444:4444" ##FOR SELENIUM SERVER  
+    container_name: selenium-Service
+    environment: 
+      CHROMEDRIVER_VERSION: '92.0.4515.107'
+    command:
+      bash -c './root/start_selenium.sh' ##STARTING SELENIUM SERVER
+    tty: true
+    stdin_open: true
+####################################################################################   Start VNC sever so you can have remote access to the docker machine in VNC ui
+  VNC-Service:
     image: amrka/ultimate-android
     build: .
     ports:
       - "5900:5900" ##FOR VNC SERVER
-      - "4723:4723" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
-    container_name: androidServ
-    environment:
-      branch: master                        ##REPO BRANCH NAME
-      username: amrka                       ##Github Username
-      gitPass: password                     ##Github password
-      gitUrl: github.com/amrka/API-test.git ## Repo SSH URL 
+    container_name: vnc-Service
+    environment: 
+      VNC_SERVER_PASSWORD: Test123!!
     privileged: true
     command:
-       bash -c './root/clone_repo.sh &&
-                (./root/start_emu_headless.sh &) &&
-                appium -p 4723'
-    tty: true
-    stdin_open: true
-
-  Selenium:
-    image: amrka/ultimate-android
-    build: .
-    ports:
-      - "4444:4444" ##FOR SELENIUM SERVER
-    container_name: seleniumServ
-    command:
-      bash -c './root/start_selenium.sh' ##STARTING SELENIUM SERVER
+      bash -c './root/bootstrap.sh' ##STARTING VNC SERVER
     tty: true
     stdin_open: true
