@@ -43,10 +43,10 @@ Emulator image is x86 CPU to enhance its speed and performance, also google play
 ## Cloning a git Repository
 Basically, we are running the same command mentioned above except that we are passing different Env variables, so to clone a repo you will need to pass the following env while starting the container:
 
--   **branch**: Repository branch name
--   **username**: GitHub username (not your email)
--   **gitPass**: Github password
--   **gitUrl**: Repository url (without https:// e.g. **github.com/amrka/androidImage.git**
+-   **BRANCH**: Repository branch name
+-   **GITHUB_USERNAME**: GitHub username (not your email)
+-   **GITHUB_TOKEN**: Github password
+-   **REPO_NAME**: exact name of the github repo
 
 **docker run --privileged -it -d -p 5900:5900 --name androidImage -e BRANCH=win -e GITHUB_USERNAME=amrka -e GITHUB_TOKEN=test -e REPO_NAME=youRepoName amrka/ultimate-android**
 
