@@ -48,7 +48,7 @@ Basically, we are running the same command mentioned above except that we are pa
 -   **gitPass**: Github password
 -   **gitUrl**: Repository url (without https:// e.g. **github.com/amrka/androidImage.git**
 
-**docker run --privileged -it -d -p 5900:5900 --name androidImage -e branch=win -e username=amrka -e gitPass=test -e gitUrl=github.com/amrka/Docker-Images.git amrka/ultimate-android**
+**docker run --privileged -it -d -p 5900:5900 --name androidImage -e BRANCH=win -e GITHUB_USERNAME=amrka -e GITHUB_TOKEN=test -e REPO_NAME=youRepoName amrka/ultimate-android**
 
 After running the command above you will be able now to run the following command to have your Repository clones in / directory:
 **docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"**
