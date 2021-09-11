@@ -24,7 +24,7 @@ services:
     environment:
       BRANCH: main                                                                     ##REPO BRANCH NAME
       GITHUB_USERNAME: amrkamel1                                                         ##Github Username
-      GITHUB_TOKEN: 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                             ##Github token
+      GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBm                                                  ##Github token
       REPO_NAME:  swypeApp-automation                                                    ##Github repo exact name
       TEST_SCRIPT: 'mvn test'
     privileged: true
