@@ -22,10 +22,10 @@ services:
       - 4700:4700
     container_name: Clone-Service
     environment:
-      BRANCH: main                                                                     ##REPO BRANCH NAME
+      BRANCH: main                                                                       ##REPO BRANCH NAME
       GITHUB_USERNAME: amrkamel1                                                         ##Github Username
       GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBm                                                  ##Github token
-      REPO_NAME:  swypeApp-automation                                                    ##Github repo exact name
+      REPO_NAME:  automation                                                             ##Github repo exact name
       TEST_SCRIPT: 'mvn test'
     privileged: true
     command:
