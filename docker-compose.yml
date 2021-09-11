@@ -1,59 +1,61 @@
 version: "3.8"
 services:
-####################################################################################   Launch eulator and appium instance
+# ####################################################################################   Launch eulator and appium instance
   Android-Service:
     image: amrka/ultimate-android
     build: .
     ports:
-      - "4723:4723" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
-    container_name: android-Service
+      - 4725:4725 ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
+    container_name: Android-Service
+    environment:
+      APPIUM_PORT: 4725
     privileged: true
     command:
-       bash -c './root/start_emu_headless.sh && appium -p 4723'
+       bash -c './start_emu_headless.sh && ./start_appium.sh'
     tty: true
     stdin_open: true
-####################################################################################   Clone you github repository and run script (JAVA/JS)
+###################################################################################   Clone you github repository and run script (JAVA/JS)
   Clone-Service:
     image: amrka/ultimate-android
     build: .
     ports:
-      - "4725" ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
-    container_name: clone-Service
+      - 4700:4700
+    container_name: Clone-Service
     environment:
-      BRANCH: master                                                             ##REPO BRANCH NAME
-      GITHUB_USERNAME: amrkamel1                                                 ##Github Username
-      GITHUB_TOKEN: ghp_wZIj4X7AaAR4aJVrb72RAIMp....                     ##Github token
-      REPO_NAME: android-test                                                            ##Github repo exact name
+      BRANCH: main                                                                     ##REPO BRANCH NAME
+      GITHUB_USERNAME: amrkamel1                                                         ##Github Username
+      GITHUB_TOKEN: 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                             ##Github token
+      REPO_NAME:  swypeApp-automation                                                    ##Github repo exact name
       TEST_SCRIPT: 'mvn test'
     privileged: true
     command:
-       bash -c './root/clone_repo.sh && ./root/execute_test.sh'       ##  Repo will be clones and test will be exected based on TEST_SCRIPT value
+       bash -c './clone_repo.sh && ./execute_test.sh'                            ##  Repo will be clones and test will be exected based on TEST_SCRIPT value
     tty: true
     stdin_open: true
-####################################################################################   Start selenium instance
+# ####################################################################################   Start selenium instance
   Selenium-Service:
     image: amrka/ultimate-android
     build: .
     ports:
-      - "4444:4444" ##FOR SELENIUM SERVER  
-    container_name: selenium-Service
+      - 4444:4444                                 ##FOR SELENIUM SERVER  
+    container_name: Selenium-Service
     environment: 
-      CHROMEDRIVER_VERSION: '92.0.4515.107'
+      BROWSER: 'firefox'                            ## IF empty chrome browser will be the default, otherwise use firefox 
     command:
-      bash -c './root/start_selenium.sh' ##STARTING SELENIUM SERVER
+      bash -c './start_selenium.sh'           ##STARTING SELENIUM SERVER
     tty: true
     stdin_open: true
-####################################################################################   Start VNC sever so you can have remote access to the docker machine in VNC ui
+# ####################################################################################   Start VNC sever so you can have remote access to the docker machine in VNC ui
   VNC-Service:
     image: amrka/ultimate-android
     build: .
     ports:
-      - "5900:5900" ##FOR VNC SERVER
-    container_name: vnc-Service
+      - 5900:5900                               ##FOR VNC SERVER
+    container_name: VNC-Service
     environment: 
-      VNC_SERVER_PASSWORD: Test123!!
+      VNC_PASSWORD: Test123!!
     privileged: true
     command:
-      bash -c './root/bootstrap.sh' ##STARTING VNC SERVER
+      bash -c './bootstrap.sh'                ##STARTING VNC SERVER
     tty: true
     stdin_open: true
