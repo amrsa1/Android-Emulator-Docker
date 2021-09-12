@@ -2,7 +2,7 @@ version: "3.8"
 services:
 # ####################################################################################   Launch eulator and appium instance
   Android-Service:
-    image: amrka/ultimate-android
+    image: amrka/ultimate-android:latest
     build: .
     ports:
       - 4725:4725 ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
@@ -16,16 +16,16 @@ services:
     stdin_open: true
 ###################################################################################   Clone you github repository and run script (JAVA/JS)
   Clone-Service:
-    image: amrka/ultimate-android
+    image: amrka/ultimate-android:latest
     build: .
     ports:
       - 4700:4700
     container_name: Clone-Service
     environment:
-      BRANCH: main                                                                       ##REPO BRANCH NAME
+      BRANCH: main                                                                     ##REPO BRANCH NAME
       GITHUB_USERNAME: amrkamel1                                                         ##Github Username
-      GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBm                                                  ##Github token
-      REPO_NAME:  automation                                                             ##Github repo exact name
+      GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBmdvp                             ##Github token
+      REPO_NAME:  automation                                                    ##Github repo exact name
       TEST_SCRIPT: 'mvn test'
     privileged: true
     command:
@@ -34,7 +34,7 @@ services:
     stdin_open: true
 # ####################################################################################   Start selenium instance
   Selenium-Service:
-    image: amrka/ultimate-android
+    image: amrka/ultimate-android:latest
     build: .
     ports:
       - 4444:4444                                 ##FOR SELENIUM SERVER  
@@ -47,7 +47,7 @@ services:
     stdin_open: true
 # ####################################################################################   Start VNC sever so you can have remote access to the docker machine in VNC ui
   VNC-Service:
-    image: amrka/ultimate-android
+    image: amrka/ultimate-android:latest
     build: .
     ports:
       - 5900:5900                               ##FOR VNC SERVER
