@@ -5,7 +5,7 @@ services:
     image: amrka/ultimate-android:latest
     build: .
     ports:
-      - 4725:4725 ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
+      - 4725:4725                                                              ##FOR APPIUM SERVER, OR CHANGE IT TO ANYTHING ELSE
     container_name: Android-Service
     environment:
       APPIUM_PORT: 4725
@@ -22,14 +22,16 @@ services:
       - 4700:4700
     container_name: Clone-Service
     environment:
-      BRANCH: main                                                                     ##REPO BRANCH NAME
-      GITHUB_USERNAME: amrkamel1                                                         ##Github Username
-      GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBmdvp                             ##Github token
-      REPO_NAME:  automation                                                    ##Github repo exact name
-      TEST_SCRIPT: 'mvn test'
+      BRANCH: main                                                             ##REPO BRANCH NAME
+      GITHUB_USERNAME: amrkamel1                                               ##Github Username
+      GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBmdvp                                     ##Github token
+      REPO_NAME:  automation                                                   ##Github repo exact name
+      TEST_SCRIPT: 'mvn test'                                                  ##Or npm test ,note  you dont need to run npm install
+      REPORT: allure                                                           
+      REPORT_DIR: './'
     privileged: true
     command:
-       bash -c './clone_repo.sh && ./execute_test.sh'                            ##  Repo will be clones and test will be exected based on TEST_SCRIPT value
+       bash -c './clone_repo.sh && ./execute_test.sh'                          ##Repo will be clones and test will be exected based on TEST_SCRIPT value
     tty: true
     stdin_open: true
 # ####################################################################################   Start selenium instance
@@ -37,12 +39,12 @@ services:
     image: amrka/ultimate-android:latest
     build: .
     ports:
-      - 4444:4444                                 ##FOR SELENIUM SERVER  
+      - 4444:4444                                                              ##FOR SELENIUM SERVER  
     container_name: Selenium-Service
     environment: 
-      BROWSER: 'firefox'                            ## IF empty chrome browser will be the default, otherwise use firefox 
+      BROWSER: 'firefox'                                                       ## IF empty chrome browser will be the default, otherwise use firefox 
     command:
-      bash -c './start_selenium.sh'           ##STARTING SELENIUM SERVER
+      bash -c './start_selenium.sh'                                            ##STARTING SELENIUM SERVER
     tty: true
     stdin_open: true
 # ####################################################################################   Start VNC sever so you can have remote access to the docker machine in VNC ui
@@ -50,12 +52,12 @@ services:
     image: amrka/ultimate-android:latest
     build: .
     ports:
-      - 5900:5900                               ##FOR VNC SERVER
+      - 5900:5900                                                               ##FOR VNC SERVER
     container_name: VNC-Service
     environment: 
       VNC_PASSWORD: Test123!!
     privileged: true
     command:
-      bash -c './bootstrap.sh'                ##STARTING VNC SERVER
+      bash -c './bootstrap.sh'                                                  ##STARTING VNC SERVER
     tty: true
     stdin_open: true
