@@ -83,6 +83,8 @@ Down below is the list of the main scripts to launch the relevant service, certa
     
 *Note: start_emu.sh will launch the emulator in headed mode, so this shell script should not be used for integration with the pipeline (e.g. Jenkins), Use **start_emu_headless.sh** instead, you can run chrome/firefox in headed mode using vnc terminal as well*
 
+*Note: For appium caps default name of the emulator is 'nexus' androidv 11*
+
 ## Cloning a git Repository
 In order to clone your repository inside the docker container automatically, you will need to pass the env variables as shown below during container initialization, cloning repository will allow you to run test inside the container against either browsers or emulators using appium, note that relevant services should be triggered according to your need:
 
