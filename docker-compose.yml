@@ -26,7 +26,7 @@ services:
       GITHUB_USERNAME: amrkamel1                                               ##Github Username
       GITHUB_TOKEN: ghp_wZIj4X7WtvB6xBmdvp                                     ##Github token
       REPO_NAME:  automation                                                   ##Github repo exact name
-      TEST_SCRIPT: 'mvn test'                                                  ##Or npm test ,note  you dont need to run npm install
+      TEST_SCRIPT: 'mvn test'                                                  ## e.g "npm run test" ,Note you dont need to run npm install
       REPORT: allure                                                           
       REPORT_DIR: './'
     privileged: true
