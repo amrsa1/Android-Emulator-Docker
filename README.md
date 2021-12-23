@@ -42,21 +42,21 @@ Down below is the list of the main scripts to launch the relevant service, certa
  
 5.  **Start the emulator in headless mode :**
 
-        docker exec --privileged -it androidImage bash -c "./root/start_emu_headless.sh"
+        docker exec --privileged -it androidImage bash -c "./start_emu_headless.sh"
 
 6.  **Cloning your repository (in case of execution inside the container) :**
 
-        docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"
-        docker exec --privileged -it androidImage bash -c "./root/execute_test.sh"
+        docker exec --privileged -it androidImage bash -c "./clone_repo.sh"
+        docker exec --privileged -it androidImage bash -c "./execute_test.sh"
 
 7.  **Starting selenium instance:**
 
-        docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"
-        docker exec --privileged -it androidImage bash -c "./root/start_selenium.sh"
+        docker exec --privileged -it androidImage bash -c "./clone_repo.sh"
+        docker exec --privileged -it androidImage bash -c "./start_selenium.sh"
 
 8.  **Starting VNC server:**
 
-        docker exec --privileged -it androidImage bash -c "./root/bootstrap.sh"
+        docker exec --privileged -it androidImage bash -c "./bootstrap.sh"
 
 
 
@@ -69,7 +69,7 @@ Down below is the list of the main scripts to launch the relevant service, certa
 
 2.  **Instantiate the VNC service by running :**
 
-        docker exec --privileged -it androidImage bash -c "./root/bootstrap.sh"
+        docker exec --privileged -it androidImage bash -c "./bootstrap.sh"
 
 3.  **Connect to the VNC server via remmina or any VNC viewer, on :**
           
@@ -77,13 +77,15 @@ Down below is the list of the main scripts to launch the relevant service, certa
     
 4.  **Open dash terminal in vnc viewer and right the following command:** 
 
-        #: ./root/start_emu.sh
+        #: ./start_emu.sh
  
 <a href="https://ibb.co/pPq0bn9"><img src="https://i.ibb.co/pPq0bn9/vnc.png" alt="vnc" border="0"></a>       <a href="https://ibb.co/cJB6qkX"><img src="https://i.ibb.co/cJB6qkX/gif.gif"       alt="gif" border="0"></a>
     
 *Note: start_emu.sh will launch the emulator in headed mode, so this shell script should not be used for integration with the pipeline (e.g. Jenkins), Use **start_emu_headless.sh** instead, you can run chrome/firefox in headed mode using vnc terminal as well*
 
-*Note: For appium caps default name of the emulator is 'nexus' androidv 11*
+*Note: 
+  - For appium caps default name of the emulator is 'nexus' androidv 11*
+  - It dose not make sense to launch all services in docker compose, just enable the service you need and comment the others in the docker compose file
 
 ## Cloning a git Repository
 In order to clone your repository inside the docker container automatically, you will need to pass the env variables as shown below during container initialization, cloning repository will allow you to run test inside the container against either browsers or emulators using appium, note that relevant services should be triggered according to your need:
@@ -96,11 +98,11 @@ In order to clone your repository inside the docker container automatically, you
 -   **REPORT**: Name of the reporting service 'only allure for now'
 -   **REPORT_DIR**: The expected root directory for allure-results folder, such as './report'
 
-        docker run --privileged -it -d -p 5900:5900 --name androidImage -e BRANCH=win -e GITHUB_USERNAME=amrka -e GITHUB_TOKEN=test -e REPO_NAME=youRepoName amrka/ultimate-android
+        docker run --privileged -it -d -p 5900:5900 --name androidImage -e BRANCH=win -e GITHUB_USERNAME=amrka -e GITHUB_TOKEN=test -e REPO_NAME=yourRepoName amrka/ultimate-android
 
 **After running the command above you will be able now to run the following command to have your Repository clones in / directory:**
 
-    docker exec --privileged -it androidImage bash -c "./root/clone_repo.sh"
+    docker exec --privileged -it androidImage bash -c "./clone_repo.sh"
 
 *Note: You can combine all VNC env var with the env above.*
 
@@ -116,18 +118,18 @@ Using the docker-compose file will make initiating the service even easier, dock
 
 **Provide the required Environments during container initializing, in case of manual execution** 
 
-| Environments      | Description                                                                                                     | Required |  Service   |
-| ----------------- | -------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
-| APPIUM_PORT       | Port for the appium instance                                                                             | Yes         | Android    |
-| BRANCH            | Repository branch name, default is master                                                                | Optional | Clone      |
-| GITHUB_USERNAME   | Github username                                                                                          | Yes         | Clone      |
-| GITHUB_TOKEN      | Personal GitHub token                                                                                    | Yes        | Clone      |
-| REPO_NAME         | Repository exact name                                                                                    | Yes        | Clone      |
-| TEST_SCRIPT       | Test command to be run e.g. 'mvn clean test'/ 'npm run test'                                             | Optional | Clone      |
-| REPORT              | Provide 'allure' in order to generate allure report                                                    | Optional | Clone      |
-| REPORT_DIR              | Provide expected directory for allure-results folder e.g './' or 'report/'...etc                   | Optional | Clone      |
-| BROWSER           | Use firefox or chrome, default is chrome                                                                 | Optional | Selenium   |
-| VNC_PASSWORD      | Password needed to connect to VNC Server                                                                 | Yes         | VNC        |
+| Environments      | Description                                                                                              | Required     |  Service   |
+| ----------------- | -------------------------------------------------------------------------------------------------------- | ------------ | -----------|
+| APPIUM_PORT       | Port for the appium instance                                                                             | Yes          | Android    |
+| BRANCH            | Repository branch name, default is master                                                                | Optional     | Clone      |
+| GITHUB_USERNAME   | Github username                                                                                          | Yes          | Clone      |
+| GITHUB_TOKEN      | Personal GitHub token                                                                                    | Yes          | Clone      |
+| REPO_NAME         | Repository exact name                                                                                    | Yes          | Clone      |
+| TEST_SCRIPT       | Test command to be run e.g. 'mvn clean test'/ 'npm run test'                                             | Optional     | Clone      |
+| REPORT            | Provide 'allure' in order to generate allure report                                                      | Optional     | Clone      |
+| REPORT_DIR        | Provide expected directory for allure-results folder e.g './' or 'report/'...etc                         | Optional     | Clone      |
+| BROWSER           | Use firefox or chrome, default is chrome                                                                 | Optional     | Selenium   |
+| VNC_PASSWORD      | Password needed to connect to VNC Server                                                                 | Yes          | VNC        |
 
 **[Check docker-compose file](https://github.com/Amrkamel1/Android-Emulator-Docker)**
 
