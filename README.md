@@ -63,15 +63,15 @@ Down below is the list of the main scripts to launch the relevant service, certa
 ## Launch emulator in headed mode
 
 
-1.  **You will have to start the docker container by using the following command :**
+1.  **You will have to start the docker container by using the following command:**
 
         docker run -it -d -p 5900:5900 --name androidImage -e VNC_PASSWORD=password --privileged amrka/ultimate-android
 
-2.  **Instantiate the VNC service by running :**
+2.  **Instantiate the VNC service by running:**
 
         docker exec --privileged -it androidImage bash -c "./bootstrap.sh"
 
-3.  **Connect to the VNC server via remmina or any VNC viewer, on :**
+3.  **Connect to the VNC server via remmina or any VNC viewer, on:**
           
         localhost:5900
     
@@ -81,11 +81,10 @@ Down below is the list of the main scripts to launch the relevant service, certa
  
 <a href="https://ibb.co/pPq0bn9"><img src="https://i.ibb.co/pPq0bn9/vnc.png" alt="vnc" border="0"></a>       <a href="https://ibb.co/cJB6qkX"><img src="https://i.ibb.co/cJB6qkX/gif.gif"       alt="gif" border="0"></a>
     
-*Note: start_emu.sh will launch the emulator in headed mode, so this shell script should not be used for integration with the pipeline (e.g. Jenkins), Use **start_emu_headless.sh** instead, you can run chrome/firefox in headed mode using vnc terminal as well*
-
-*Note: 
-  - For appium caps default name of the emulator is 'nexus' androidv 11*
-  - It dose not make sense to launch all services in docker compose, just enable the service you need and comment the others in the docker compose file
+Note: 
+  - start_emu.sh will launch the emulator in headed mode, so this shell script should not be used for integration with the pipeline (e.g. Jenkins), Use **start_emu_headless.sh** instead, you can run chrome/firefox in headed mode using vnc terminal as well
+  - For appium caps default name of the emulator is 'nexus' android 11 
+  - It does not make sense to launch all services in docker-compose, just enable the service you need and comment on the others in the docker-compose file
 
 ## Cloning a git Repository
 In order to clone your repository inside the docker container automatically, you will need to pass the env variables as shown below during container initialization, cloning repository will allow you to run test inside the container against either browsers or emulators using appium, note that relevant services should be triggered according to your need:
@@ -136,6 +135,6 @@ Using the docker-compose file will make initiating the service even easier, dock
 
 ## Kill the container
 
--   **Run the following command to kill and remove the container :** 
+-   **Run the following command to kill and remove the container:** 
 
         docker rm -f containerName
